@@ -54,9 +54,10 @@ class NbowModel():
     def eval_rocauc(self, X, labels):
         return roc_auc_score(labels,  self.predict(X))
 
-    def score(self, infer_X, infer_y):
-        accuracy = self.eval_acc(infer_X, infer_y)
-        rocauc = self.eval_rocauc(infer_X, infer_y)
+    def score(self, infer_df):
+        infer_df = infer_df.reset_index()
+        accuracy = self.eval_acc(infer_df["review"], infer_df["label"])
+        rocauc = self.eval_rocauc(infer_df["review"], infer_df["label"])
 
         return accuracy, rocauc
 

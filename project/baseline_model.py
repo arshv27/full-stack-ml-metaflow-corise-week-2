@@ -1,5 +1,7 @@
 
-class Baseline_Majority_Classifier(self):
+from sklearn.metrics import roc_auc_score, accuracy_score
+
+class Baseline_Majority_Classifier():
 
     def __init__(self, train_df, val_df):
         self.train_data = train_df
@@ -17,13 +19,14 @@ class Baseline_Majority_Classifier(self):
         return
 
     def predict(self, infer_X):
-        baseline_pred_proba = 1
-        baseline_pred = self.majority_label
+        baseline_pred_proba = [1]*(len(infer_X))
+        baseline_pred = [self.majority_label]*(len(infer_X))
 
         return baseline_pred_proba, baseline_pred
 
     def score(self, labels, predictions_proba, predictions):
-        self.accuracy_score = accuracy_score(labels, predictions)
-        self.auroc_score = roc_auc_score(labels, predictions_proba)
+        
+        self.accuracy = accuracy_score(labels, predictions)
+        self.auroc = roc_auc_score(labels, predictions_proba)
 
-        return self.accuracy_score, self.auroc_score
+        return self.accuracy, self.auroc
